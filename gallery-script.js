@@ -9,8 +9,7 @@ const refs = {
     'button[data-action="close-lightbox"]'
   ),
 };
-let carrentCard = {};
-let currentImage = {};
+let currentCard = {};
 let nextImage = {};
 let previousImage = {};
 let nextCard = {};
@@ -60,7 +59,8 @@ function openLightBox(event) {
   window.addEventListener("keydown", onEscKeyPress);
   window.addEventListener("keydown", onKeyLeftPress);
   window.addEventListener("keydown", onKeyRightPress);
-  currentImage = event.target;
+
+  currentCard = event.target.closest(".gallery__item");
 }
 
 function CloseLightBox(event) {
@@ -91,34 +91,28 @@ function onKeyLeftPress(event) {
   if (event.code !== "ArrowLeft") {
     return;
   }
-
-  carrentCard = currentImage.closest(".gallery__item");
-  previousCard = card.previousElementSibling;
+  previousCard = currentCard.previousElementSibling;
 
   if (previousCard === null) {
     return;
   }
 
-  previousImage = previousCard.querySelector("img");
-  refs.lightBoxImage.src = previousImage.dataset.source;
-  refs.lightBoxImage.alt = previousImage.alt;
-  currentImage = previousImage;
+  refs.lightBoxImage.src = previousCard.querySelector("img").dataset.source;
+  refs.lightBoxImage.alt = previousCard.querySelector("img").alt;
+  currentCard = previousCard;
 }
 
 function onKeyRightPress(event) {
   if (event.code !== "ArrowRight") {
     return;
   }
-
-  carrentCard = currentImage.closest(".gallery__item");
-  nextCard = carrentCard.nextElementSibling;
+  nextCard = currentCard.nextElementSibling;
 
   if (nextCard === null) {
     return;
   }
 
-  nextImage = nextCard.querySelector("img");
-  refs.lightBoxImage.src = nextImage.dataset.source;
-  refs.lightBoxImage.alt = nextImage.alt;
-  currentImage = nextImage;
+  refs.lightBoxImage.src = nextCard.querySelector("img").dataset.source;
+  refs.lightBoxImage.alt = nextCard.querySelector("img").alt;
+  currentCard = nextCard;
 }
