@@ -8,6 +8,7 @@ const refs = {
   closeLightBoxBtn: document.querySelector(
     'button[data-action="close-lightbox"]'
   ),
+  body: document.querySelector("body"),
 };
 let currentCard = {};
 let nextImage = {};
@@ -61,6 +62,7 @@ function openLightBox(event) {
   window.addEventListener("keydown", onKeyRightPress);
 
   currentCard = event.target.closest(".gallery__item");
+  refs.body.style.overflow = "hidden";
 }
 
 function CloseLightBox(event) {
@@ -73,6 +75,7 @@ function CloseLightBox(event) {
 
   refs.lightBoxImage.src = "";
   refs.lightBoxImage.alt = "";
+  refs.body.style.overflow = "";
 }
 
 function onBackdropClick(event) {
